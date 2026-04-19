@@ -3,31 +3,58 @@ import '../screens/home_page.dart';
 import '../screens/calendar_page.dart';
 import '../screens/analytics_page.dart';
 import '../screens/settings_page.dart';
+import '../screens/profile_page.dart'; // ✅ important
 
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
+        padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(color: Colors.indigo),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Icon(Icons.account_circle, size: 50, color: Colors.white),
-                SizedBox(height: 10),
-                Text("Bill Reminder", style: TextStyle(color: Colors.white, fontSize: 20)),
-                Text("Manage your bills easily", style: TextStyle(color: Colors.white70)),
-              ],
+          // ===== PROFILE HEADER (CLICKABLE) =====
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => ProfilePage()),
+              );
+            },
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.indigo,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.person, size: 30, color: Colors.indigo),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Your Name",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  Text(
+                    "Tap to view profile",
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                ],
+              ),
             ),
           ),
 
+          // ===== MENU ITEMS =====
           ListTile(
             leading: Icon(Icons.home),
             title: Text("Home"),
             onTap: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomePage()));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => HomePage()),
+              );
             },
           ),
 
@@ -35,7 +62,10 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.calendar_month),
             title: Text("Calendar"),
             onTap: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => CalendarPage()));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => CalendarPage()),
+              );
             },
           ),
 
@@ -43,7 +73,10 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.bar_chart),
             title: Text("Analytics"),
             onTap: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => AnalyticsPage()));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => AnalyticsPage()),
+              );
             },
           ),
 
@@ -51,24 +84,30 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.settings),
             title: Text("Settings"),
             onTap: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => SettingsPage()));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => SettingsPage()),
+              );
             },
           ),
 
           Divider(),
 
+          // ===== ABOUT =====
           ListTile(
             leading: Icon(Icons.info),
             title: Text("About"),
             onTap: () {
               showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    title: Text("About"),
-                    content: Text("Bill Reminder App v1.0\nBuilt with Flutter"),
-                    ),
-                  );
-              },
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: Text("About"),
+                  content: Text(
+                    "Bill Reminder App v1.0\nBuilt with Flutter",
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
